@@ -2,12 +2,10 @@ package com.jpacourse.persistence.entity;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import java.util.Collection;
+
 
 @Entity
 @Table(name = "PATIENT")
@@ -33,6 +31,14 @@ public class PatientEntity {
 
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
+
+	// relacja dwustronna po stronie rodzica
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+	private Collection<VisitEntity> visits;
+
+	// relacja dwustronna po stronie rodzica
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	private AddressEntity address;
 
 	public Long getId() {
 		return id;
@@ -88,6 +94,21 @@ public class PatientEntity {
 
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+
+	public AddressEntity getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressEntity address) {
+		this.address = address;
+	}
+
+	public Collection<VisitEntity> getVisits() {
+		return visits;
+	}
+	public void setVisits(Collection<VisitEntity> visits) {
+		this.visits = visits;
 	}
 
 }

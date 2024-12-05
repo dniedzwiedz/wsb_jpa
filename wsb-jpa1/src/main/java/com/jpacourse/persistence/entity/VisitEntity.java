@@ -2,12 +2,10 @@ package com.jpacourse.persistence.entity;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import java.util.Collection;
+
 
 @Entity
 @Table(name = "VISIT")
@@ -21,6 +19,22 @@ public class VisitEntity {
 
 	@Column(nullable = false)
 	private LocalDateTime time;
+
+	// relacja dwustronna po stronie dziecka
+	@ManyToOne
+	private DoctorEntity doctor;
+
+	// relacja dwustronna po stronie dziecka
+	@ManyToOne
+	private PatientEntity patient;
+
+	// relacja jednostronna
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "VISITS_TO_TREATMENTS",
+			joinColumns = @JoinColumn(name = "VISIT_ID"),
+			inverseJoinColumns = @JoinColumn(name = "TREATMENT_ID"))
+	private Collection<MedicalTreatmentEntity> treatments;
+
 
 	public Long getId() {
 		return id;
@@ -44,6 +58,27 @@ public class VisitEntity {
 
 	public void setTime(LocalDateTime time) {
 		this.time = time;
+	}
+
+	public DoctorEntity getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(DoctorEntity doctor) {
+		this.doctor = doctor;
+	}
+
+	public Collection<MedicalTreatmentEntity> getTreatments() {
+		return treatments;
+	}
+	public void setTreatments(Collection<MedicalTreatmentEntity> treatments) {
+		this.treatments = treatments;
+	}
+	public PatientEntity getPatient() {
+		return patient;
+	}
+	public void setPatient(PatientEntity patient) {
+		this.patient = patient;
 	}
 
 }

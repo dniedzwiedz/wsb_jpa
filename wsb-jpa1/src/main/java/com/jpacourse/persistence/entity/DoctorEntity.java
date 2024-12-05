@@ -27,7 +27,7 @@ public class DoctorEntity {
 
 	@Column(nullable = false)
 	private String doctorNumber;
-
+//tst
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Specialization specialization;

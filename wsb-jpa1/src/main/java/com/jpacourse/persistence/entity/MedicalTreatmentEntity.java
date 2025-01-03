@@ -12,6 +12,10 @@ public class MedicalTreatmentEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@ManyToOne
+	@JoinColumn(name = "visit_id", nullable = false) // upewnij się, że nazwa kolumny pasuje do schematu bazy danych
+	private VisitEntity visit;
+
 	@Column(nullable = false)
 	private String description;
 

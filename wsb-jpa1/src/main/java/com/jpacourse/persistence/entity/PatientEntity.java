@@ -32,6 +32,9 @@ public class PatientEntity {
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
 
+	@Column(nullable = false)
+	private Boolean diabetes;
+
 	// relacja dwustronna po stronie rodzica
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
 	private Collection<VisitEntity> visits;
@@ -46,6 +49,14 @@ public class PatientEntity {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public boolean getDiabetes() {
+		return diabetes;
+	}
+
+	public void setDiabetes(Boolean diabetes) {
+		this.diabetes = diabetes;
 	}
 
 	public String getFirstName() {

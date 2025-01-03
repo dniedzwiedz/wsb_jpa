@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import java.util.Collection;
 
+import java.util.List;
 
 @Entity
 @Table(name = "VISIT")
@@ -28,6 +29,9 @@ public class VisitEntity {
 	@ManyToOne
 	private PatientEntity patient;
 
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<MedicalTreatmentEntity> medicalTreatments;
+
 	// relacja jednostronna
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "VISITS_TO_TREATMENTS",
@@ -35,6 +39,13 @@ public class VisitEntity {
 			inverseJoinColumns = @JoinColumn(name = "TREATMENT_ID"))
 	private Collection<MedicalTreatmentEntity> treatments;
 
+	public List<MedicalTreatmentEntity> getMedicalTreatments() {
+		return medicalTreatments;
+	}
+
+	public void setMedicalTreatments(List<MedicalTreatmentEntity> medicalTreatments) {
+		this.medicalTreatments = medicalTreatments;
+	}
 
 	public Long getId() {
 		return id;

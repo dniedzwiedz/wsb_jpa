@@ -1,9 +1,10 @@
 package com.jpacourse.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class PatientTO {
+public class PatientTO implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;

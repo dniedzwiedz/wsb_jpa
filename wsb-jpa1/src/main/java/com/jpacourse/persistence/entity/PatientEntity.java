@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import javax.persistence.*;
 
 import java.util.Collection;
+import java.util.List;
 
 
 @Entity
@@ -37,7 +38,7 @@ public class PatientEntity {
 
 	// relacja dwustronna po stronie rodzica
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-	private Collection<VisitEntity> visits;
+	private List<VisitEntity> visits;
 
 	// relacja dwustronna po stronie rodzica
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -115,10 +116,11 @@ public class PatientEntity {
 		this.address = address;
 	}
 
-	public Collection<VisitEntity> getVisits() {
+	public List<VisitEntity> getVisits() {
 		return visits;
 	}
-	public void setVisits(Collection<VisitEntity> visits) {
+
+	public void setVisits(List<VisitEntity> visits) {
 		this.visits = visits;
 	}
 

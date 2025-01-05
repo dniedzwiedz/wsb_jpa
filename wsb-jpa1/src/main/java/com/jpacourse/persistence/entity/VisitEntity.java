@@ -27,6 +27,7 @@ public class VisitEntity {
 
 	// relacja dwustronna po stronie dziecka
 	@ManyToOne
+	@JoinColumn(name="patient_id")
 	private PatientEntity patient;
 
 	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

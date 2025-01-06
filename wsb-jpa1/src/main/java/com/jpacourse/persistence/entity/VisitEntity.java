@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import java.util.Collection;
 
+import java.util.List;
 
 @Entity
 @Table(name = "VISIT")
@@ -26,15 +27,24 @@ public class VisitEntity {
 
 	// relacja dwustronna po stronie dziecka
 	@ManyToOne
+	@JoinColumn(name = "patient_id")
 	private PatientEntity patient;
 
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<MedicalTreatmentEntity> medicalTreatments;
+
 	// relacja jednostronna
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name = "VISITS_TO_TREATMENTS",
-			joinColumns = @JoinColumn(name = "VISIT_ID"),
-			inverseJoinColumns = @JoinColumn(name = "TREATMENT_ID"))
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "VISITS_TO_TREATMENTS", joinColumns = @JoinColumn(name = "VISIT_ID"), inverseJoinColumns = @JoinColumn(name = "TREATMENT_ID"))
 	private Collection<MedicalTreatmentEntity> treatments;
 
+	public List<MedicalTreatmentEntity> getMedicalTreatments() {
+		return medicalTreatments;
+	}
+
+	public void setMedicalTreatments(List<MedicalTreatmentEntity> medicalTreatments) {
+		this.medicalTreatments = medicalTreatments;
+	}
 
 	public Long getId() {
 		return id;
@@ -71,12 +81,15 @@ public class VisitEntity {
 	public Collection<MedicalTreatmentEntity> getTreatments() {
 		return treatments;
 	}
+
 	public void setTreatments(Collection<MedicalTreatmentEntity> treatments) {
 		this.treatments = treatments;
 	}
+
 	public PatientEntity getPatient() {
 		return patient;
 	}
+
 	public void setPatient(PatientEntity patient) {
 		this.patient = patient;
 	}

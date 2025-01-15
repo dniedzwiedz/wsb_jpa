@@ -22,7 +22,7 @@ public class AddressEntity {
 	private String postalCode;
 
 	// relacja dwukstronna po stronie dziecka
-	@OneToOne(mappedBy = "address")
+	@ManyToOne//(mappedBy = "address")
 	private PatientEntity patient;
 
 	public Long getId() {

@@ -38,8 +38,8 @@ public class PatientEntity {
 	private List<VisitEntity> visits;
 
 	// relacja dwustronna po stronie rodzica
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "address_id", referencedColumnName = "id")
+	@OneToOne//(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "address_id")//, referencedColumnName = "id")
 	private AddressEntity address;
 
 	public Long getId() {

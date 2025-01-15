@@ -34,6 +34,7 @@ public class DoctorEntity {
 
 	// relacja jednostronna po stronie rodzica
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "address_id")
 	private AddressEntity address;
 	// relacja dwustronna po stronie rodzica
 	@OneToMany(mappedBy = "doctor", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})

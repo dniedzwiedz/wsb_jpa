@@ -52,11 +52,12 @@ public class VisitTO implements Serializable {
         this.doctorLastName = doctorLastName;
     }
 
-    public List<String> getTreatmentTypes() {
+    public List<String> getMedicalTreatmentTypes() {
         return treatmentTypes;
     }
 
     public void setTreatmentTypes(List<String> treatmentTypes) {
         this.treatmentTypes = treatmentTypes;
     }
+
 }

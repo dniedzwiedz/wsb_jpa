@@ -1,7 +1,6 @@
 package com.jpacourse.persistence.entity;
 
 import com.jpacourse.persistence.enums.TreatmentType;
-
 import javax.persistence.*;
 
 @Entity

@@ -39,7 +39,8 @@ public final class PatientMapper {
         visitTO.setDoctorFirstName(visitEntity.getDoctor().getFirstName());
         visitTO.setDoctorLastName(visitEntity.getDoctor().getLastName());
         visitTO.setTreatmentTypes(
-                visitEntity.getTreatments().stream().map(t -> t.getType().name()).collect(Collectors.toList()));
+                visitEntity.getMedicalTreatments().stream().map(t -> t.getType().name()).collect(Collectors.toList()));
+        System.out.println("visitTO: " + visitEntity.getMedicalTreatments());
         return visitTO;
     }
 
@@ -59,4 +60,5 @@ public final class PatientMapper {
         patientEntity.setDiabetes(patientTO.getDiabetes()); // Mapping diabetes field
         return patientEntity;
     }
+
 }

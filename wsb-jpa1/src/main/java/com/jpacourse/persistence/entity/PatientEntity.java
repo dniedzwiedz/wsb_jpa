@@ -4,12 +4,7 @@ import java.time.LocalDate;
 
 import javax.persistence.*;
 
-<<<<<<< HEAD
-import java.util.Collection;
-
-=======
 import java.util.List;
->>>>>>> 2612bab58510d8f72bb0ae2913228c35e65ae561
 
 @Entity
 @Table(name = "patients")
@@ -36,14 +31,6 @@ public class PatientEntity {
 	@Column(nullable = false)
 	private LocalDate dateOfBirth;
 
-<<<<<<< HEAD
-	// relacja dwustronna po stronie rodzica
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-	private Collection<VisitEntity> visits;
-
-	// relacja dwustronna po stronie rodzica
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-=======
 	private Boolean diabetes; // New field
 
 	// relacja dwustronna po stronie rodzica
@@ -51,9 +38,8 @@ public class PatientEntity {
 	private List<VisitEntity> visits;
 
 	// relacja dwustronna po stronie rodzica
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "address_id", referencedColumnName = "id")
->>>>>>> 2612bab58510d8f72bb0ae2913228c35e65ae561
+	@OneToOne//(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "address_id")//, referencedColumnName = "id")
 	private AddressEntity address;
 
 	public Long getId() {
@@ -112,8 +98,6 @@ public class PatientEntity {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-<<<<<<< HEAD
-=======
 	public Boolean getDiabetes() {
 		return diabetes;
 	}
@@ -122,7 +106,6 @@ public class PatientEntity {
 		this.diabetes = diabetes;
 	}
 
->>>>>>> 2612bab58510d8f72bb0ae2913228c35e65ae561
 	public AddressEntity getAddress() {
 		return address;
 	}
@@ -131,18 +114,11 @@ public class PatientEntity {
 		this.address = address;
 	}
 
-<<<<<<< HEAD
-	public Collection<VisitEntity> getVisits() {
-		return visits;
-	}
-	public void setVisits(Collection<VisitEntity> visits) {
-=======
 	public List<VisitEntity> getVisits() {
 		return visits;
 	}
 
 	public void setVisits(List<VisitEntity> visits) {
->>>>>>> 2612bab58510d8f72bb0ae2913228c35e65ae561
 		this.visits = visits;
 	}
 

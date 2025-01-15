@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
-import java.util.Collection;
-
 import java.util.List;
 
 @Entity
@@ -23,28 +21,25 @@ public class VisitEntity {
 
 	// relacja dwustronna po stronie dziecka
 	@ManyToOne
+	@JoinColumn(name = "doctor_id", nullable = false)
 	private DoctorEntity doctor;
 
 	// relacja dwustronna po stronie dziecka
 	@ManyToOne
-	@JoinColumn(name = "patient_id")
+	@JoinColumn(name = "patient_id", nullable = false)
 	private PatientEntity patient;
 
-	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MedicalTreatmentEntity> medicalTreatments;
-
-	// relacja jednostronna
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "VISITS_TO_TREATMENTS", joinColumns = @JoinColumn(name = "VISIT_ID"), inverseJoinColumns = @JoinColumn(name = "TREATMENT_ID"))
-	private Collection<MedicalTreatmentEntity> treatments;
 
 	public List<MedicalTreatmentEntity> getMedicalTreatments() {
 		return medicalTreatments;
 	}
 
-	public void setMedicalTreatments(List<MedicalTreatmentEntity> medicalTreatments) {
-		this.medicalTreatments = medicalTreatments;
-	}
+	// public void setMedicalTreatments(List<MedicalTreatmentEntity>
+	// medicalTreatments) {
+	// this.medicalTreatments = medicalTreatments;
+	// }
 
 	public Long getId() {
 		return id;
@@ -78,13 +73,8 @@ public class VisitEntity {
 		this.doctor = doctor;
 	}
 
-	public Collection<MedicalTreatmentEntity> getTreatments() {
-		return treatments;
-	}
-
-	public void setTreatments(Collection<MedicalTreatmentEntity> treatments) {
-		this.treatments = treatments;
-	}
+	// public Collection<MedicalTreatmentEntity> getMTreatments() {return
+	// treatments;}
 
 	public PatientEntity getPatient() {
 		return patient;
@@ -92,6 +82,14 @@ public class VisitEntity {
 
 	public void setPatient(PatientEntity patient) {
 		this.patient = patient;
+	}
+
+	// public DoctorEntity getDoctor() {return doctor;}
+	// public void setDoctor(DoctorEntity doctor) {this.doctor = doctor;}
+	// public List<MedicalTreatmentEntity> getMedicalTreatments() {return
+	// medicalTreatments;}
+	public void setMedicalTreatments(List<MedicalTreatmentEntity> medicalTreatments) {
+		this.medicalTreatments = medicalTreatments;
 	}
 
 }

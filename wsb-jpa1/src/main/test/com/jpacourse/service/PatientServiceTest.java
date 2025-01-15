@@ -1,6 +1,7 @@
 package com.jpacourse.service;
 
 import com.jpacourse.dto.PatientTO;
+import com.jpacourse.dto.VisitTO;
 import com.jpacourse.persistence.dao.DoctorDao;
 import com.jpacourse.persistence.dao.PatientDao;
 import com.jpacourse.persistence.entity.DoctorEntity;
@@ -34,21 +35,12 @@ public class PatientServiceTest {
     @Test
     @Transactional
     public void testDeletePatientShouldCascadeDeleteVisitsAndNotDeleteDoctors() {
-        // given
         Long patientId = 1L;
         Long doctorId = 1L;
-
-        // Retrieve existing doctor and patient
         DoctorEntity doctor = doctorDao.findOne(doctorId);
         PatientEntity patient = patientDao.findOne(patientId);
-
-        // Ensure the patient has visits
         assertThat(patient.getVisits()).isNotEmpty();
-
-        // when
         patientService.deletePatient(patient.getId());
-
-        // then
         assertThat(patientDao.findOne(patient.getId())).isNull();
         assertThat(doctorDao.findOne(doctor.getId())).isNotNull();
     }
@@ -56,16 +48,9 @@ public class PatientServiceTest {
     @Test
     @Transactional
     public void testGetPatientByIdShouldReturnCorrectStructure() {
-        // given
         Long patientId = 1L;
-
-        // Retrieve existing patient
         PatientEntity patient = patientDao.findOne(patientId);
-
-        // when
         PatientTO patientTO = patientService.getPatientById(patient.getId());
-
-        // then
         assertThat(patientTO).isNotNull();
         assertThat(patientTO.getId()).isEqualTo(patient.getId());
         assertThat(patientTO.getFirstName()).isEqualTo(patient.getFirstName());
@@ -75,5 +60,18 @@ public class PatientServiceTest {
         assertThat(patientTO.getPatientNumber()).isEqualTo(patient.getPatientNumber());
         assertThat(patientTO.getDateOfBirth()).isEqualTo(patient.getDateOfBirth());
         assertThat(patientTO.getDiabetes()).isEqualTo(patient.getDiabetes());
+    }
+
+    @Test
+    @Transactional
+    public void testFindVisitsByPatientId() {
+        Long patientId = 2L;
+        List<VisitTO> visits = patientService.findVisitsByPatientId(patientId);
+        System.out.println(visits.size());
+        assertThat(visits).isNotEmpty();
+        assertThat(visits.size()).isEqualTo(1);
+        visits.forEach(visitTO ->
+                assertThat(visitTO.getMedicalTreatmentTypes()).isNotEmpty()
+        );
     }
 }
